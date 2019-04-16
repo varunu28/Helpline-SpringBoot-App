@@ -30,4 +30,13 @@ public class Case {
     public String getContent() {
         return content;
     }
+
+    @Override
+    public String toString() {
+        return "Case{" +
+                "id=" + id +
+                ", area=" + area +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }
