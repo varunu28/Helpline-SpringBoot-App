@@ -31,3 +31,5 @@ HELP.md
 data-mongodb/
 diagnostic.data/
 journal/
+
+credentials.txt

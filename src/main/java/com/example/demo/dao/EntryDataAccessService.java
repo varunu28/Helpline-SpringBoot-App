@@ -12,8 +12,10 @@ import java.util.UUID;
 @Repository("entryDao")
 public class EntryDataAccessService implements EntryDao  {
 
+    public String BUCKET_NAME = "";
+
     @Override
-    public int insertPerson(Entry entry) {
+    public int insertPerson(Entry entry) throws IOException {
         System.out.println(entry.toString());
 
         // Save entry to JSON file
@@ -25,8 +27,14 @@ public class EntryDataAccessService implements EntryDao  {
         return 0;
     }
 
-    private void saveToS3Bucket(String fileName) {
+    private void saveToS3Bucket(String fileName) throws IOException {
+        S3BucketManager
+                .getS3BucketManager()
+                .addFileToBucket(BUCKET_NAME, UUID.randomUUID().toString(), fileName);
 
+        // Delete file after pushing to S3 bucket
+        File file = new File(fileName);
+        file.delete();
     }
 
     private String saveAsJSONFile(Entry entry) {
