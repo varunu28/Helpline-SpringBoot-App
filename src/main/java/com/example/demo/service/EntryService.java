@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+
 
 @Service
 public class EntryService {
@@ -17,7 +19,7 @@ public class EntryService {
         this.entryDao = entryDao;
     }
 
-    public int addPerson(Entry entry) {
+    public int addPerson(Entry entry) throws IOException {
         return entryDao.insertPerson(entry);
     }
 }

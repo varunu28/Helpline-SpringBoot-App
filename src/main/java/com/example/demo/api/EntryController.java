@@ -5,6 +5,8 @@ import com.example.demo.service.EntryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 
 @RequestMapping("/api/v1/entry")
 @RestController
@@ -18,7 +20,7 @@ public class EntryController {
     }
 
     @PostMapping
-    public void addEntry(@RequestBody Entry entry) {
+    public void addEntry(@RequestBody Entry entry) throws IOException {
         entryService.addPerson(entry);
     }
 }
