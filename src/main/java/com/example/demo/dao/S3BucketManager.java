@@ -1,8 +1,10 @@
 package com.example.demo.dao;
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -15,19 +17,16 @@ import java.util.List;
 public class S3BucketManager {
 
     private AmazonS3 s3Client = null;
-    private static final String CREDENTIALS_FILE = "src/credentials.txt";
     private File file;
     private static S3BucketManager S3BucketManager = null;
 
+    private static AWSCredentialsProvider awsCredentialsProvider = DefaultAWSCredentialsProviderChain.getInstance();
+
     private S3BucketManager() throws IOException {
-
-        List<String> credentials = getCredentials();
-
-        BasicAWSCredentials awsCreds = new BasicAWSCredentials(credentials.get(0), credentials.get(1));
         s3Client = AmazonS3ClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
-                .withRegion(Regions.US_EAST_1)
-                .build();
+                                        .withCredentials(awsCredentialsProvider)
+                                        .withRegion(Regions.US_EAST_2)
+                                        .build();
     }
 
     public static S3BucketManager getS3BucketManager() throws IOException {
@@ -50,19 +49,5 @@ public class S3BucketManager {
                 System.out.println(e.getErrorMessage());
             }
         }
-    }
-
-    private List<String> getCredentials() throws IOException {
-
-        file = new File(CREDENTIALS_FILE);
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String line;
-        List<String> credentials = new ArrayList<>();
-
-        while ((line = br.readLine()) != null) {
-            credentials.add(line);
-        }
-
-        return credentials;
     }
 }

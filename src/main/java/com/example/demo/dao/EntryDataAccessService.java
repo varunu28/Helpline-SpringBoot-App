@@ -12,7 +12,7 @@ import java.util.UUID;
 @Repository("entryDao")
 public class EntryDataAccessService implements EntryDao  {
 
-    public String BUCKET_NAME = "";
+    public String BUCKET_NAME = "test-bucket-cmpe295";
 
     @Override
     public int insertPerson(Entry entry) throws IOException {
