@@ -12,15 +12,18 @@ public class Entry {
     private String content;
     private String source;
     private Date timestamp;
+    private String isrescued;
 
     public Entry(@JsonProperty("location") String location,
                   @JsonProperty("area") String area,
                  @JsonProperty("content") String content,
-                 @JsonProperty("source") String source) {
+                 @JsonProperty("source") String source,
+                 @JsonProperty("isrescued") String isrescued) {
         this.location = location;
         this.area = area;
         this.content = content;
         this.source = source;
+        this.isrescued = isrescued;
         this.timestamp = new Date();
     }
 
@@ -44,13 +47,19 @@ public class Entry {
         return timestamp.toString();
     }
 
+    public String getIsrescued() {
+        return isrescued;
+    }
+
     @Override
     public String toString() {
         return "Entry{" +
                 "location='" + location + '\'' +
                 ", area='" + area + '\'' +
                 ", content='" + content + '\'' +
-                ", timestamp=" + timestamp.toString() +
+                ", source='" + source + '\'' +
+                ", timestamp=" + timestamp +
+                ", isrescued='" + isrescued + '\'' +
                 '}';
     }
 }
